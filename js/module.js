@@ -13,6 +13,10 @@ function analyseUrl(pUrl) {
         host: null
         , query: null
         , schema: null
+        , query: null
+        , port: null
+        , path: null
+        
     }; // and other props.
     //...
     r.schema = pUrl.split("://")[0];
@@ -35,6 +39,16 @@ function analyseUrl(pUrl) {
     if (pUrl.includes("#")){
         r.fragment = pUrl.substring(pUrl.indexOf("#")+1, pUrl.length);
     }
+    if (pUrl.indexOf(":", 8) > -1){
+        r.port = pUrl.substring(pUrl.indexOf(":", 8)+1, pUrl.indexOf("/", 8));
+    } 
+    if (pUrl.indexOf("/", 8) > -1){
+        r.path = pUrl.substring(pUrl.indexOf("/", 8)+1, pUrl.indexOf("?", 8));
+    }
+    if (pUrl.indexOf("?", 8) > -1){
+        r.query = pUrl.substring(pUrl.indexOf("?", 8)+1, pUrl.length);
+    }
+    
     return r;
 }
 //  it('An url will be parsed an return all the parts in an object.', function(){
